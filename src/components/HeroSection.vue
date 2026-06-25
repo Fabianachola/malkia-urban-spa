@@ -1,7 +1,6 @@
 <template>
   <section class="hero">
     <div class="hero-slider">
-      <!-- Single Video Slide -->
       <div class="slide active">
         <video
           ref="heroVideo"
@@ -10,8 +9,7 @@
           muted
           loop
           playsinline
-          preload="auto"
-          @loadedmetadata="onVideoLoaded"
+          preload="metadata"
         >
           <source src="/images/hero/hero1.mp4" type="video/mp4" />
           Your browser does not support the video tag.
@@ -31,40 +29,6 @@
 <script>
 export default {
   name: 'HeroSection',
-  data() {
-    return {
-      videoDuration: 32, // 32 seconds
-    };
-  },
-  mounted() {
-    this.startVideoLoop();
-  },
-  beforeUnmount() {
-    this.stopVideoLoop();
-  },
-  methods: {
-    onVideoLoaded() {
-      const video = this.$refs.heroVideo;
-      if (video) {
-        // Start video from beginning
-        video.currentTime = 0;
-      }
-    },
-    startVideoLoop() {
-      const video = this.$refs.heroVideo;
-      if (video) {
-        // Check every second if video has reached 32 seconds
-        this.videoInterval = setInterval(() => {
-          if (video.currentTime >= this.videoDuration) {
-            video.currentTime = 0; // Reset to beginning
-          }
-        }, 100);
-      }
-    },
-    stopVideoLoop() {
-      clearInterval(this.videoInterval);
-    },
-  },
 };
 </script>
 
@@ -73,8 +37,8 @@ export default {
 .hero {
   width: 100%;
   height: 100vh;
-  min-height: 600px;
-  max-height: 1200px;
+  min-height: 500px;
+  max-height: 1000px;
   background: #1a1a1a;
   position: relative;
   overflow: hidden;
@@ -111,7 +75,7 @@ export default {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   will-change: transform;
-  background: #1a1a1a; /* Fallback while video loads */
+  background: #1a1a1a;
 }
 
 /* Overlay with semi‑transparent background for text readability */
@@ -129,31 +93,29 @@ export default {
   text-align: center;
   padding: 2rem;
   color: #fafafa;
-  pointer-events: none; /* Allows clicking through to button */
+  pointer-events: none;
 }
 
 .slide-overlay a {
-  pointer-events: auto; /* Makes button clickable */
+  pointer-events: auto;
 }
 
 /* ===== TEXT & BUTTONS – RESPONSIVE SIZING ===== */
 .slide-overlay h1 {
-  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-size: clamp(2rem, 6vw, 4.5rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
   text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
-  animation: fadeInUp 0.9s ease;
   line-height: 1.2;
   max-width: 900px;
 }
 
 .slide-overlay p {
-  font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+  font-size: clamp(1rem, 2vw, 1.6rem);
   margin-bottom: 1.8rem;
   opacity: 0.95;
   max-width: 700px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  animation: fadeInUp 0.9s ease 0.2s both;
 }
 
 /* ===== PINK BOOK BUTTON ===== */
@@ -167,7 +129,6 @@ export default {
   font-weight: 600;
   text-decoration: none;
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  animation: fadeInUp 0.9s ease 0.4s both;
   white-space: nowrap;
   box-shadow: 0 4px 20px rgba(233, 30, 99, 0.35);
   pointer-events: auto;
@@ -179,26 +140,14 @@ export default {
   box-shadow: 0 6px 30px rgba(233, 30, 99, 0.5);
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* ===== RESPONSIVE FINE‑TUNING ===== */
 
 /* Tablets and smaller laptops */
 @media (max-width: 1024px) {
   .hero {
     height: 90vh;
-    min-height: 500px;
-    max-height: 1000px;
+    min-height: 450px;
+    max-height: 900px;
   }
 }
 
@@ -206,21 +155,21 @@ export default {
 @media (max-width: 768px) {
   .hero {
     height: 85vh;
-    min-height: 450px;
+    min-height: 400px;
     max-height: 800px;
   }
 
   .slide-overlay h1 {
-    font-size: clamp(2rem, 6vw, 2.8rem);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
   }
 
   .slide-overlay p {
-    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
   }
 
   .slide-overlay .cta-button {
     padding: 0.7rem 2rem;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     white-space: normal;
   }
 }
@@ -229,27 +178,27 @@ export default {
 @media (max-width: 480px) {
   .hero {
     height: 80vh;
-    min-height: 400px;
+    min-height: 350px;
     max-height: 700px;
   }
 
   .slide-overlay {
     padding: 1.5rem;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.55);
   }
 
   .slide-overlay h1 {
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-size: clamp(1.4rem, 4.5vw, 2rem);
   }
 
   .slide-overlay p {
-    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    font-size: clamp(0.8rem, 1.5vw, 0.95rem);
     margin-bottom: 1.2rem;
   }
 
   .slide-overlay .cta-button {
     padding: 0.6rem 1.6rem;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -257,20 +206,20 @@ export default {
 @media (max-width: 360px) {
   .hero {
     height: 75vh;
-    min-height: 350px;
+    min-height: 300px;
   }
 
   .slide-overlay h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .slide-overlay p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .slide-overlay .cta-button {
     padding: 0.5rem 1.2rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -298,6 +247,13 @@ export default {
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
     }
+  }
+}
+
+/* Firefox: Ensure smooth rendering */
+@-moz-document url-prefix() {
+  .hero-video {
+    object-fit: cover;
   }
 }
 
