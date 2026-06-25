@@ -8,13 +8,11 @@
       <!-- Scrolling Testimonials -->
       <div class="testimonials-scroll-wrapper">
         <div class="testimonials-track">
-          <!-- First set of testimonials -->
-          <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="'first-' + index">
-            <!-- Message at the top -->
+          <!-- Single set of testimonials -->
+          <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="index">
             <div class="testimonial-body">
               <p>{{ testimonial.text }}</p>
             </div>
-            <!-- Bottom: Avatar + Name + Google + Stars + Date -->
             <div class="testimonial-bottom">
               <div class="avatar-wrapper">
                 <img 
@@ -27,21 +25,18 @@
               <div class="bottom-info">
                 <h4>{{ testimonial.name }}</h4>
                 <div class="bottom-meta">
-                  <img src="/images/icons/google-logo.png" alt="Google" class="google-badge" />
+                  <img src="/images/icons/google-logo.png" alt="Google" class="google-badge" loading="lazy" />
                   <span class="stars">★★★★★</span>
                   <span class="date">{{ testimonial.date }}</span>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- Duplicate set for seamless looping -->
-          <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="'second-' + index">
-            <!-- Message at the top -->
+          <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="'dup-' + index">
             <div class="testimonial-body">
               <p>{{ testimonial.text }}</p>
             </div>
-            <!-- Bottom: Avatar + Name + Google + Stars + Date -->
             <div class="testimonial-bottom">
               <div class="avatar-wrapper">
                 <img 
@@ -54,7 +49,7 @@
               <div class="bottom-info">
                 <h4>{{ testimonial.name }}</h4>
                 <div class="bottom-meta">
-                  <img src="/images/icons/google-logo.png" alt="Google" class="google-badge" />
+                  <img src="/images/icons/google-logo.png" alt="Google" class="google-badge" loading="lazy" />
                   <span class="stars">★★★★★</span>
                   <span class="date">{{ testimonial.date }}</span>
                 </div>
@@ -76,7 +71,7 @@ export default {
         {
           name: 'Anne Kavata',
           date: '3 months ago',
-          text: 'I did waxing at that place and it was very top notch, I did my legs and underarms and it was very professional, flawless and painless. I really appreciate their gentle service and would advice anyone to go and have their own service.',
+          text: 'I did waxing at that place and it was very top notch, I did my legs and underarms and it was very professional, flawless and painless.',
           avatar: '/images/testimonials/avatar-anne.jpg',
         },
         {
@@ -88,13 +83,13 @@ export default {
         {
           name: 'sheila Adera',
           date: '3 months ago',
-          text: 'So far the best place I have done my waxing in town, very friendly lady and she makes sure you are very comfortable during the whole service. They also did my brows and I\'m now slaying.',
+          text: 'So far the best place I have done my waxing in town, very friendly lady and she makes sure you are very comfortable during the whole service.',
           avatar: '/images/testimonials/avatar-sheila.jpg',
         },
         {
           name: 'Khainga Anyanje',
           date: '4 months ago',
-          text: 'Great services, great customer service, high level of discipline and handling of customers. Accurate in details with intent of customer satisfaction.',
+          text: 'Great services, great customer service, high level of discipline and handling of customers.',
           avatar: '/images/testimonials/avatar-khainga.jpg',
         },
         {
@@ -106,19 +101,19 @@ export default {
         {
           name: 'Rachael Wangui',
           date: '4 months ago',
-          text: 'The level of cleanliness at this spa is exceptional. The room, tools and overall environment were spotless, which made the experience very relaxing.',
+          text: 'The level of cleanliness at this spa is exceptional. The room, tools and overall environment were spotless.',
           avatar: '/images/testimonials/avatar-rachael.jpg',
         },
         {
           name: 'Martha Brian',
           date: '4 months ago',
-          text: 'Recommendable job done here at malkia urban spa; talk of timely, commensurate and top notch services offered. You\'re my forever place.',
+          text: 'Recommendable job done here at malkia urban spa; talk of timely, commensurate and top notch services offered.',
           avatar: '/images/testimonials/avatar-brian.jpg',
         },
         {
           name: 'Fridah Ngaywa',
           date: '4 months ago',
-          text: 'A place to be. A one time recreation of oneself and rebuild of self esteem. What\'s confidence without malkia beauty? 💗💕💗💕💕💗',
+          text: 'A place to be. A one time recreation of oneself and rebuild of self esteem. What\'s confidence without malkia beauty?',
           avatar: '/images/testimonials/avatar-fridah.jpg',
         },
       ],
@@ -163,14 +158,15 @@ export default {
   position: relative;
 }
 
-/* ===== TESTIMONIALS TRACK – EDGE TO EDGE ===== */
+/* ===== TESTIMONIALS TRACK – SMOOTH ===== */
 .testimonials-track {
   display: flex;
   gap: 2rem;
-  animation: scrollRightToLeft 45s linear infinite;
   width: max-content;
   padding: 1rem 0;
   padding-left: 0;
+  will-change: transform;
+  animation: scrollSmooth 50s linear infinite;
 }
 
 /* Pause animation on hover */
@@ -189,8 +185,8 @@ export default {
   flex-direction: column;
   min-width: 380px;
   max-width: 380px;
-  min-height: 270px;
-  max-height: 310px;
+  min-height: 240px;
+  max-height: 280px;
   flex-shrink: 0;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   justify-content: space-between;
@@ -206,42 +202,42 @@ export default {
   flex: 1;
   display: flex;
   align-items: flex-start;
-  padding-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
 }
 
 .testimonial-body p {
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: 0.95rem;
+  line-height: 1.7;
   color: #333;
   margin: 0;
   font-style: italic;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
+  /* Remove -webkit-line-clamp for smoother rendering */
   overflow: hidden;
-  quotes: "“" "”" "‘" "’";
+  text-overflow: ellipsis;
+  display: block;
+  max-height: 5.5em;
 }
 
 .testimonial-body p::before {
   content: "“";
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #e91e63;
   margin-right: 2px;
 }
 
 .testimonial-body p::after {
   content: "”";
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #e91e63;
   margin-left: 2px;
 }
 
-/* ===== TESTIMONIAL BOTTOM (Avatar + Name + Google + Stars + Date) ===== */
+/* ===== TESTIMONIAL BOTTOM ===== */
 .testimonial-bottom {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding-top: 1rem;
+  padding-top: 0.8rem;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   margin-top: auto;
 }
@@ -251,11 +247,11 @@ export default {
 }
 
 .avatar {
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2.5px solid #e91e63;
+  border: 2px solid #e91e63;
   background: #fafafa;
 }
 
@@ -265,37 +261,37 @@ export default {
 }
 
 .bottom-info h4 {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #1a1a1a;
-  margin: 0 0 0.2rem 0;
+  margin: 0 0 0.1rem 0;
 }
 
 .bottom-meta {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 }
 
 .google-badge {
-  height: 16px;
+  height: 14px;
   width: auto;
 }
 
 .bottom-meta .stars {
   color: #fbbc04;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 1px;
 }
 
 .bottom-meta .date {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: #999;
 }
 
-/* ===== SCROLL ANIMATION – RIGHT TO LEFT ===== */
-@keyframes scrollRightToLeft {
+/* ===== SMOOTH SCROLL ANIMATION ===== */
+@keyframes scrollSmooth {
   0% {
     transform: translateX(0);
   }
@@ -306,38 +302,19 @@ export default {
 
 /* ===== RESPONSIVE ===== */
 
-/* Large screens – edge to edge */
-@media (min-width: 1200px) {
-  .testimonials-track {
-    padding-left: 0;
-    gap: 2rem;
-  }
-  
-  .testimonial-card {
-    min-width: 380px;
-    max-width: 380px;
-    min-height: 270px;
-    max-height: 310px;
-  }
-}
-
 /* Tablets & small laptops */
 @media (max-width: 1024px) {
   .testimonial-card {
     min-width: 340px;
     max-width: 340px;
-    min-height: 250px;
-    max-height: 290px;
+    min-height: 220px;
+    max-height: 260px;
     padding: 1.5rem 1.8rem 1.3rem;
-  }
-  
-  .testimonial-body p {
-    -webkit-line-clamp: 5;
   }
   
   .testimonials-track {
     gap: 1.8rem;
-    animation-duration: 40s;
+    animation-duration: 45s;
   }
 }
 
@@ -350,28 +327,28 @@ export default {
   .testimonial-card {
     min-width: 300px;
     max-width: 300px;
-    min-height: 230px;
-    max-height: 270px;
+    min-height: 200px;
+    max-height: 240px;
     padding: 1.3rem 1.5rem 1.1rem;
   }
 
   .testimonials-track {
     gap: 1.5rem;
-    animation-duration: 35s;
+    animation-duration: 40s;
   }
   
   .testimonial-body p {
-    font-size: 0.92rem;
-    -webkit-line-clamp: 5;
+    font-size: 0.88rem;
+    max-height: 5em;
   }
   
   .avatar {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
   }
   
   .bottom-info h4 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -380,32 +357,32 @@ export default {
   .testimonial-card {
     min-width: 270px;
     max-width: 270px;
-    min-height: 200px;
-    max-height: 240px;
+    min-height: 180px;
+    max-height: 220px;
     padding: 1.2rem 1.2rem 1rem;
   }
 
   .avatar {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
 
   .bottom-info h4 {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
   }
 
   .testimonial-body p {
-    font-size: 0.85rem;
-    -webkit-line-clamp: 4;
+    font-size: 0.82rem;
+    max-height: 4.5em;
   }
 
   .testimonials-track {
     gap: 1rem;
-    animation-duration: 30s;
+    animation-duration: 35s;
   }
   
   .google-badge {
-    height: 13px;
+    height: 12px;
   }
   
   .bottom-meta .stars {
@@ -420,7 +397,7 @@ export default {
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   .testimonials-track {
-    animation-duration: 60s;
+    animation-duration: 80s;
   }
 }
 </style>
