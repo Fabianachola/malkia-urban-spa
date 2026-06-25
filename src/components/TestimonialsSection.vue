@@ -8,8 +8,8 @@
       <!-- Scrolling Testimonials -->
       <div class="testimonials-scroll-wrapper">
         <div class="testimonials-track">
-          <!-- First set of testimonials -->
-          <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="'first-' + index">
+          <!-- Single set of testimonials (no duplicate) -->
+          <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="index">
             <!-- Message at the top -->
             <div class="testimonial-body">
               <p>{{ testimonial.text }}</p>
@@ -27,34 +27,7 @@
               <div class="bottom-info">
                 <h4>{{ testimonial.name }}</h4>
                 <div class="bottom-meta">
-                  <img src="/images/icons/google-logo.png" alt="Google" class="google-badge" />
-                  <span class="stars">★★★★★</span>
-                  <span class="date">{{ testimonial.date }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Duplicate set for seamless looping -->
-          <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="'second-' + index">
-            <!-- Message at the top -->
-            <div class="testimonial-body">
-              <p>{{ testimonial.text }}</p>
-            </div>
-            <!-- Bottom: Avatar + Name + Google + Stars + Date -->
-            <div class="testimonial-bottom">
-              <div class="avatar-wrapper">
-                <img 
-                  :src="testimonial.avatar" 
-                  :alt="testimonial.name" 
-                  class="avatar"
-                  loading="lazy"
-                />
-              </div>
-              <div class="bottom-info">
-                <h4>{{ testimonial.name }}</h4>
-                <div class="bottom-meta">
-                  <img src="/images/icons/google-logo.png" alt="Google" class="google-badge" />
+                  <img src="/images/icons/google-logo.png" alt="Google" class="google-badge" loading="lazy" />
                   <span class="stars">★★★★★</span>
                   <span class="date">{{ testimonial.date }}</span>
                 </div>
@@ -167,7 +140,7 @@ export default {
 .testimonials-track {
   display: flex;
   gap: 2rem;
-  animation: scrollRightToLeft 45s linear infinite;
+  animation: scrollRightToLeft 60s linear infinite;
   width: max-content;
   padding: 1rem 0;
   padding-left: 0;
@@ -337,7 +310,7 @@ export default {
   
   .testimonials-track {
     gap: 1.8rem;
-    animation-duration: 40s;
+    animation-duration: 50s;
   }
 }
 
@@ -357,7 +330,7 @@ export default {
 
   .testimonials-track {
     gap: 1.5rem;
-    animation-duration: 35s;
+    animation-duration: 45s;
   }
   
   .testimonial-body p {
@@ -401,7 +374,7 @@ export default {
 
   .testimonials-track {
     gap: 1rem;
-    animation-duration: 30s;
+    animation-duration: 35s;
   }
   
   .google-badge {
@@ -420,7 +393,7 @@ export default {
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   .testimonials-track {
-    animation-duration: 60s;
+    animation-duration: 80s;
   }
 }
 </style>
