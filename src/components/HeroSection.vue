@@ -7,9 +7,10 @@
           class="hero-video"
           autoplay
           muted
-          loop
           playsinline
           preload="metadata"
+          @timeupdate="handleTimeUpdate"
+          @loadedmetadata="onVideoLoaded"
         >
           <source src="/images/hero/hero1.mp4" type="video/mp4" />
           Your browser does not support the video tag.
@@ -29,6 +30,36 @@
 <script>
 export default {
   name: 'HeroSection',
+  data() {
+    return {
+      videoDuration: 32, // Stop at 32 seconds
+    };
+  },
+  mounted() {
+    const video = this.$refs.heroVideo;
+    if (video) {
+      // Ensure video starts at 0 when loaded
+      video.currentTime = 0;
+    }
+  },
+  methods: {
+    onVideoLoaded() {
+      const video = this.$refs.heroVideo;
+      if (video) {
+        // Start from beginning
+        video.currentTime = 0;
+        video.play();
+      }
+    },
+    handleTimeUpdate() {
+      const video = this.$refs.heroVideo;
+      if (video && video.currentTime >= this.videoDuration) {
+        // When video reaches 32 seconds, reset to 0
+        video.currentTime = 0;
+        video.play();
+      }
+    },
+  },
 };
 </script>
 
